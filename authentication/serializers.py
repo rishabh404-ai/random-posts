@@ -5,7 +5,6 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.validators import EmailValidator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
@@ -14,10 +13,6 @@ from authentication.models import User
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    """
-    Used for the step 1 of customer on-boarding. Used to serialize and validate the customers
-    personal details.
-    """
     
     firstname             = serializers.CharField(write_only=True,required=False,max_length=255)   
     lastname              = serializers.CharField(write_only=True,required=False,max_length=255)        
@@ -108,9 +103,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    """
-    Used to authenticate customer/freelancer.
-    """
 
     email = serializers.EmailField(max_length=255, min_length=3, read_only=True)
     username = serializers.CharField(max_length=255, min_length=3, read_only=True)

@@ -6,28 +6,28 @@ from django.urls import reverse
 from django.utils.encoding import (DjangoUnicodeDecodeError, smart_bytes,
                                    smart_str)
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-#from freelancer.serializers import RegisterSerializer
-
 from rest_framework import exceptions, generics, permissions, status, viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.parsers import (FileUploadParser, FormParser, JSONParser,
+                                    MultiPartParser)
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from authentication.models import User
-from authentication.serializers import (RegisterSerializer, LoginSerializer, LogoutSerializer )
-from rest_framework.parsers import FormParser, MultiPartParser, JSONParser, FileUploadParser  
+from authentication.serializers import (LoginSerializer, LogoutSerializer,
+                                        RegisterSerializer)
 
 
 
 class RegisterViewSet(viewsets.ModelViewSet):
     """ View to register a User """
 
-    serializer_class = RegisterSerializer
-    queryset = User.objects.all()
-    http_method_names = ('post',)
+    serializer_class   = RegisterSerializer
+    queryset           = User.objects.all()
+    http_method_names  = ('post',)
     permission_classes = (permissions.AllowAny,)
-  #  parser_classes = (FormParser,MultiPartParser) 
+    parser_classes     = (FormParser,MultiPartParser) 
     
     def create(self, request, *args, **kwargs):
         serializer  = self.get_serializer(data=request.data, many=isinstance(request.data, list))
@@ -35,7 +35,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
             self.perform_create(serializer)
             user_data = serializer.data
             user      = User.objects.get(email=user_data["email"])
-            token   = RefreshToken.for_user(user).access_token
+            token     = RefreshToken.for_user(user).access_token
            
             return Response(
                     {
@@ -64,10 +64,10 @@ class RegisterViewSet(viewsets.ModelViewSet):
      
 class LoginViewSet(viewsets.ModelViewSet):
     """ View to login a User with username/email. """
-    serializer_class = LoginSerializer
-    queryset = User.objects.all()
+    serializer_class  = LoginSerializer
+    queryset          = User.objects.all()
     http_method_names = ('post',)
-  #  parser_classes = (FormParser,MultiPartParser) 
+    parser_classes    = (FormParser,MultiPartParser) 
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -90,10 +90,12 @@ class LoginViewSet(viewsets.ModelViewSet):
 
 
 class LogoutViewSet(viewsets.ModelViewSet):
-    serializer_class = LogoutSerializer
+     """ View to logout a User """
+
+    serializer_class   = LogoutSerializer
     permission_classes = (permissions.IsAuthenticated,)
-    http_method_names = ('post',)
-  #  parser_classes = (FormParser,MultiPartParser) 
+    http_method_names  = ('post',)
+    parser_classes     = (FormParser,MultiPartParser) 
 
     def create(self, request,*args,**kwargs):
 

@@ -1,16 +1,18 @@
 from django.shortcuts import render
+from rest_framework import permissions, status, viewsets
+from rest_framework.parsers import (FileUploadParser, FormParser, JSONParser,
+                                    MultiPartParser)
+from rest_framework.response import Response
+
 from myapp.models import RandomPosts
 from myapp.serializers import RandomPostsSerializer
-from rest_framework import viewsets, permissions, status
-from rest_framework.response import Response
-from rest_framework.parsers import FormParser, MultiPartParser, JSONParser, FileUploadParser 
 
 # Create your views here.
 
 class RandomPostsViewSet(viewsets.ModelViewSet):
-    queryset         = RandomPosts.objects.all()
-    serializer_class = RandomPostsSerializer
-#    parser_classes = (FormParser,MultiPartParser)    
+    queryset           = RandomPosts.objects.all()
+    serializer_class   = RandomPostsSerializer
+    parser_classes     = (FormParser,MultiPartParser)    
     permission_classes = (permissions.IsAuthenticated,)    
 
     def create(self,request, *args, **kwargs):
