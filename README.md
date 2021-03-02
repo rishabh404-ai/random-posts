@@ -37,6 +37,12 @@ Note : You need to be authenticated to access this api.
 For User registeration, login & logout system - 
 https://randomposts.herokuapp.com/api/v1/user/
 
+I have added swagger settings in this application for testing the APIs.
+You can find the url for the same here:
+
+https://randomposts.herokuapp.com/swagger/
+
+Or you can also check on Postman
 
 How to get the app running ?
 
