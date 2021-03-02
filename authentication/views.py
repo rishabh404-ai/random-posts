@@ -90,8 +90,7 @@ class LoginViewSet(viewsets.ModelViewSet):
 
 
 class LogoutViewSet(viewsets.ModelViewSet):
-     """ View to logout a User """
-
+    """ View to logout a User """
     serializer_class   = LogoutSerializer
     permission_classes = (permissions.IsAuthenticated,)
     http_method_names  = ('post',)
