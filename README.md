@@ -29,8 +29,10 @@ I registered with my account but when i try to login it shows try later or wrong
 
 Heroku Link - 
 
-For adding random posts by user - 
+For adding/viewing random posts by users - 
 https://randomposts.herokuapp.com/api/v1/posts/random-posts/
+
+Note : You need to be authenticated to access this api.
 
 For User registeration, login & logout system - 
 https://randomposts.herokuapp.com/api/v1/user/
