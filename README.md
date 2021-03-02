@@ -18,6 +18,7 @@ well
 Name of project - mysite
 
 Name of authentication app - authentications
+
 Name of random post app - myapp
 
 Authentications used - JWT Authentications
